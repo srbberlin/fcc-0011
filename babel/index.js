@@ -44,7 +44,7 @@ class Canvas extends React.Component {
     return (
       <div className='row'>
         <h1>The Markdown Viewer</h1>
-        <In publish={this.publish} init={this.props.init}/>
+        <In publish={this.publish} init={this.state.typed}/>
         <Out text={this.state.typed} />
       </div>
     );
