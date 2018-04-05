@@ -6,19 +6,20 @@ const babel = require('gulp-babel')
 const browserSync = require('browser-sync')
 
 var config = {
-  cssin:   __dirname + '/sass/**/*.sass',
-  jsin:    __dirname + '/babel/**/*.js',
-  htmlin:  __dirname + '/html/**/*.html',
-  cssout:  __dirname + '/docs/css/',
-  jsout:   __dirname + '/docs/js/',
-  htmlout: __dirname + '/docs/'
+  cssin:    __dirname + '/sass/**/*.sass',
+  jsin:     __dirname + '/babel/**/*.js',
+  htmlin:   __dirname + '/html/**/*.html',
+  assetsin: __dirname + '/assets/**/*',
+  cssout:   __dirname + '/docs/css/',
+  jsout:    __dirname + '/docs/js/',
+  htmlout:  __dirname + '/docs/'
 }
 
 gulp.task('reload', function () {
   browserSync.reload()
 })
 
-gulp.task('serve', ['html', 'sass', 'babel'], function () {
+gulp.task('serve', ['html', 'assets', 'sass', 'babel'], function () {
   browserSync({
     server: config.htmlout
   })
@@ -26,10 +27,17 @@ gulp.task('serve', ['html', 'sass', 'babel'], function () {
   gulp.watch(config.jsin, () => runSeq(['babel', 'reload']))
   gulp.watch(config.cssin, () => runSeq(['sass', 'reload']))
   gulp.watch(config.htmlin, () => runSeq(['html', 'reload']))
+  gulp.watch(config.assetsin, () => runSeq(['assets', 'reload']))
 })
 
 gulp.task('html', function () {
   let path = config.htmlin
+  return gulp.src(path)
+    .pipe(gulp.dest(config.htmlout))
+})
+
+gulp.task('assets', function () {
+  let path = config.assetsin
   return gulp.src(path)
     .pipe(gulp.dest(config.htmlout))
 })
@@ -52,6 +60,6 @@ gulp.task('babel', function () {
     .pipe(gulp.dest(config.jsout))
 })
 
-gulp.task('build', ['html', 'babel', 'sass'])
+gulp.task('build', ['html', 'assets', 'babel', 'sass'])
 
 gulp.task('default', ['serve'])
