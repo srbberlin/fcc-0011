@@ -37,6 +37,7 @@ var In = function (_React$Component) {
           'Input goes here'
         ),
         React.createElement('textarea', {
+          value: this.props.init,
           onChange: this.onChange
         })
       );
@@ -82,7 +83,7 @@ var Canvas = function (_React$Component3) {
 
     var _this3 = _possibleConstructorReturn(this, (Canvas.__proto__ || Object.getPrototypeOf(Canvas)).call(this, props));
 
-    _this3.state = { typed: "" };
+    _this3.state = { typed: _this3.props.init };
     _this3.publish = _this3.publish.bind(_this3);
     return _this3;
   }
@@ -103,7 +104,7 @@ var Canvas = function (_React$Component3) {
           null,
           'The Markdown Viewer'
         ),
-        React.createElement(In, { publish: this.publish }),
+        React.createElement(In, { publish: this.publish, init: this.props.init }),
         React.createElement(Out, { text: this.state.typed })
       );
     }
@@ -112,4 +113,10 @@ var Canvas = function (_React$Component3) {
   return Canvas;
 }(React.Component);
 
-ReactDOM.render(React.createElement(Canvas, null), document.getElementById('root'));
+fetch('README.md').then(function (r) {
+  return r.text();
+}).then(function (v) {
+  ReactDOM.render(React.createElement(Canvas, { init: v }), document.getElementById('root'));
+}).catch(function (e) {
+  console.log(e);
+});
