@@ -11,7 +11,8 @@ class In extends React.Component {
       <div className='col-sm-6'>
         <h3>Input goes here</h3>
         <textarea
-            onChange={this.onChange}
+          value={this.props.init}
+          onChange={this.onChange}
         />
       </div>
     );
@@ -33,7 +34,7 @@ class Out extends React.Component {
 class Canvas extends React.Component {
   constructor(props){
     super(props);
-    this.state = {typed: ""};
+    this.state = {typed: this.props.init};
     this.publish = this.publish.bind(this);
   }
   publish(text) {
@@ -43,14 +44,23 @@ class Canvas extends React.Component {
     return (
       <div className='row'>
         <h1>The Markdown Viewer</h1>
-        <In publish={this.publish}/>
+        <In publish={this.publish} init={this.props.init}/>
         <Out text={this.state.typed} />
       </div>
     );
   }
 }
 
-ReactDOM.render(
-  <Canvas />,
-  document.getElementById('root')
-);
+fetch('README.md')
+  .then(function(r) {
+    return r.text()
+  })
+  .then(function(v) {
+    ReactDOM.render(
+      <Canvas init={v} />,
+      document.getElementById('root')
+    );
+  })
+  .catch(function (e) {
+    console.log(e)
+  })
