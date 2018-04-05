@@ -104,7 +104,7 @@ var Canvas = function (_React$Component3) {
           null,
           'The Markdown Viewer'
         ),
-        React.createElement(In, { publish: this.publish, init: this.props.init }),
+        React.createElement(In, { publish: this.publish, init: this.state.typed }),
         React.createElement(Out, { text: this.state.typed })
       );
     }
