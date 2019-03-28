@@ -12,11 +12,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 var In =
 /*#__PURE__*/
@@ -29,7 +29,7 @@ function (_React$Component) {
     _classCallCheck(this, In);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(In).call(this, props));
-    _this.onChange = _this.onChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -44,6 +44,7 @@ function (_React$Component) {
       return React.createElement("div", {
         className: "col-sm-6"
       }, React.createElement("h3", null, "Input goes here"), React.createElement("textarea", {
+        id: "editor",
         value: this.props.init,
         onChange: this.onChange
       }));
@@ -70,7 +71,7 @@ function (_React$Component2) {
       return React.createElement("div", {
         className: "col-sm-6"
       }, React.createElement("h3", null, "The result is here"), React.createElement("div", {
-        id: "OUT",
+        id: "preview",
         dangerouslySetInnerHTML: {
           __html: marked(this.props.text)
         }
@@ -95,7 +96,7 @@ function (_React$Component3) {
     _this2.state = {
       typed: _this2.props.init
     };
-    _this2.publish = _this2.publish.bind(_assertThisInitialized(_assertThisInitialized(_this2)));
+    _this2.publish = _this2.publish.bind(_assertThisInitialized(_this2));
     return _this2;
   }
 
