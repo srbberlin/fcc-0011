@@ -11,6 +11,7 @@ class In extends React.Component {
       <div className='col-sm-6'>
         <h3>Input goes here</h3>
         <textarea
+          id="editor"
           value={this.props.init}
           onChange={this.onChange}
         />
@@ -24,7 +25,7 @@ class Out extends React.Component {
     return (
       <div className='col-sm-6'>
         <h3>The result is here</h3>
-        <div id="OUT" dangerouslySetInnerHTML={{__html:marked(this.props.text)}} >
+        <div id="preview" dangerouslySetInnerHTML={{__html:marked(this.props.text)}} >
         </div>
       </div>
     );
